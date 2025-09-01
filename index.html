@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mattless - Mattress Recycling in South Australia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Background image for hero and contact sections */
+        .hero::before,
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/mattresscollection.png') center/cover no-repeat;
+            background-attachment: fixed;
+            background-size: 80%;
+            filter: blur(6px);
+            z-index: -1;
+            opacity: 0.15;
+        }
+        
+        .hero,
+        .contact {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.95);
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .contact {
+                padding-bottom: 20px;
+            }
+            
+            .contact::before {
+                min-height: 0 !important;
+                height: 100%;
+            }
+        }
+        
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero::before,
+            .contact::before {
+                background-size: 100% auto;
+                background-attachment: scroll;
+                min-height: 0;
+                height: 100%;
+                opacity: 0.1;
+            }
+            
+            .hero {
+                min-height: 90vh;
+                padding: 100px 0 40px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                max-width: 100%;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero-buttons .cta-button,
+            .hero-buttons .secondary-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--gray);
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        .contact {
+            padding: 80px 0;
+        }
+        
+        .hero .container,
+        .contact .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        :root {
+            --primary: #00A651;
+            --secondary: #FF6B35;
+            --dark: #2D3436;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: white;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Reset nav-links for desktop */
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                z-index: 1001;
+                position: relative;
+            }
+            
+            .nav-links {
+                display: none; /* Start hidden on mobile */
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .nav-links a {
+                padding: 12px 0;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a.cta-button {
+                margin: 10px 0 0;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        header {
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #008a43;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 166, 81, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            flex: 1;
+            max-width: 850px;
+            text-align: left;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .hero-text {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .hero h1,
+            .hero p {
+                max-width: 100% !important;
+                text-align: center;
+            }
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .secondary-button {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(0, 166, 81, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 400px;
+        }
+        
+        .hero-image img {
+            position: absolute;
+            width: 100%;
+            height: 110%;
+            object-fit: contain;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: var(--gray);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .service-card {
+                margin-bottom: 20px;
+                padding: 30px 20px;
+            }
+            
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 20px;
+            }
+            
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .hero-image {
+                position: absolute;
+            }
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 166, 81, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+            margin-top: auto;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-top: 30px;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 25px;
+            }
+            
+            .contact-info h3 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-info {
+                text-align: center;
+                padding: 30px 20px !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-methods {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+                margin-top: 20px;
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .contact-method {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+                padding: 20px 15px;
+                margin: 10px 0;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            }
+            
+            .contact-icon {
+                font-size: 40px;
+                margin: 0 auto 15px;
+                line-height: 1;
+                display: block;
+                width: auto;
+            }
+            
+            .contact-method h4 {
+                margin: 0 0 8px 0;
+                font-size: 1.2rem;
+                width: 100%;
+                color: #333;
+            }
+            
+            .contact-method p {
+                width: 100%;
+                margin: 0;
+                color: #666;
+                line-height: 1.5;
+            }
+            
+            .contact-method a {
+                display: inline-block;
+                color: #0066cc;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            
+            .contact-method a:hover {
+                color: #004499;
+            }
+        }
+        
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .contact p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .contact-method {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .contact-method h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .contact-method p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .form-group select {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: white;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px 12px;
+            padding-right: 40px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+            outline: none;
+        }
+        
+        select:hover {
+            border-color: #b3b3b3;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), #00C853);
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .cta-section .cta-button {
+            background: white;
+            color: var(--primary) !important;
+            font-size: 18px;
+            padding: 15px 35px;
+        }
+        
+        .cta-section .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .footer-logo-img {
+            height: 35px;
+            width: auto;
+        }
+        
+        .footer-logo .logo-text {
+            color: white;
+            font-size: 20px;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-column {
+            margin-bottom: 25px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: white;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #ADB5BD;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            text-align: center;
+            gap: 15px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .footer-social a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .footer-social a:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Modern Button Styles */
+        .modern-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .modern-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .modern-button:active {
+            transform: translateY(0);
+        }
+
+        .button-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .modern-button:hover .button-hover {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Spinner Animation */
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes dash {
+            0% {
+                stroke-dasharray: 1, 150;
+                stroke-dashoffset: 0;
+            }
+            50% {
+                stroke-dasharray: 90, 150;
+                stroke-dashoffset: -35;
+            }
+            100% {
+                stroke-dasharray: 90, 150;
+                stroke-dashoffset: -124;
+            }
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            animation: rotate 2s linear infinite;
+        }
+
+        .path {
+            stroke: white;
+            stroke-linecap: round;
+            animation: dash 1.5s ease-in-out infinite;
+        }
+
+        /* Form Styles */
+        .form-message {
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .form-message.visible {
+            display: block;
+        }
+        
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .button-spinner {
+            display: none;
+        }
+        
+        .button-spinner.visible {
+            display: inline-block;
+        }
+        
+        .button-text {
+            display: inline-block;
+        }
+        
+        .button-text.hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                padding: 40px 0 20px;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 30px;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .footer-column h4 {
+                display: inline-block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .footer-social {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo-portrait.png" alt="mattless Logo">
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#contact" class="cta-button">Book Now</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Mattress Recycling in South Australia</h1>
+                    <p>We do mattress disposal that's easy for you and great forthe planet. We make recycling your old mattress simple and affordable.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="cta-button">Book a Collection</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/mattress-stack.png" alt="Mattress Recycling">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Simple, affordable mattress recycling solutions for South Australia</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span>♻️</span>
+                    </div>
+                    <h3>Mattress Recycling</h3>
+                    <p>We collect and recycle your old mattress, ensuring it's disposed of in an environmentally friendly way.</p>
+                    <div class="price">From $30 per mattress</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span>🚛</span>
+                    </div>
+                    <h3>Bulk Collection</h3>
+                    <p>Have multiple mattresses? We offer discounted rates for bulk collections.</p>
+                    <div class="price">Contact for Quote</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span>🏢</span>
+                    </div>
+                    <h3>Commercial Services</h3>
+                    <p>Specialized solutions for hotels, motels, and property managers across South Australia.</p>
+                    <div class="price">Contact Us</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions about our mattress recycling services? Contact us today and we'll be happy to help.</p>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">📞</div>
+                        <h4>Call Us</h4>
+                        <p><a href="tel:0487195802" style="color: inherit; text-decoration: none;">0487 195 802</a></p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">✉️</div>
+                        <h4>Email Us</h4>
+                        <p><a href="mailto:robert.oliver@hotmail.com" style="color: inherit; text-decoration: none;">robert.oliver@hotmail.com</a></p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">📍</div>
+                        <h4>Servicable Area</h4>
+                        <p>Metropolitan Adelaide & Surrounding Areas</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Book Your Collection</h3>
+                    <form id="collectionForm" action="https://formspree.io/f/mkgvzvja" method="POST">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="0412 345 678" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mattress-count">Number of Mattresses <span class="required">*</span></label>
+                            <select id="mattress-count" name="mattress-count" required>
+                                <option value="" disabled selected>Select number</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4+">4+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Additional Information</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Any special instructions or questions?"></textarea>
+                        </div>
+                        <div id="form-message" class="form-message"></div>
+                        <button type="submit" class="modern-button" id="submitBtn">
+                            <span class="button-text">Book Collection</span>
+                            <span class="button-spinner" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 50 50">
+                                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                                </svg>
+                            </span>
+                            <div class="button-hover"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Recycle Your Mattress?</h2>
+                <p>Book your collection today and join us in making South Australia greener, one mattress at a time.</p>
+                <a href="#contact" class="cta-button">Book Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <img src="images/logo-portrait-white.png" alt="mattless Logo" class="footer-logo-img">
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="tel:0487195802">0487 195 802</a></li>
+                            <li><a href="mailto:robert.oliver@hotmail.com">robert.oliver@hotmail.com</a></li>
+                            <li>Servicing Metropolitan Adelaide & Surrounding Areas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mattless Recycling. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Form Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('collectionForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const buttonText = submitBtn.querySelector('.button-text');
+            const buttonSpinner = submitBtn.querySelector('.button-spinner');
+            const formMessage = document.getElementById('form-message');
+            
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    buttonText.classList.add('hidden');
+                    buttonSpinner.style.display = 'inline-block';
+                    formMessage.className = 'form-message';
+                    formMessage.textContent = '';
+                    
+                    try {
+                        const formData = new FormData(form);
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            formMessage.textContent = 'Thank you! Your collection has been booked. We\'ll be in touch shortly.';
+                            formMessage.className = 'form-message success visible';
+                            form.reset();
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    } catch (error) {
+                        formMessage.textContent = 'There was a problem submitting your request. Please try again or contact us directly.';
+                        formMessage.className = 'form-message error visible';
+                        console.error('Error:', error);
+                    } finally {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        buttonText.classList.remove('hidden');
+                        buttonSpinner.style.display = 'none';
+                        
+                        // Scroll to the message
+                        formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        });
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            // Ensure menu is closed by default on mobile
+            if (window.innerWidth <= 768) {
+                navLinks.style.display = 'none';
+            }
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = navLinks.style.display === 'flex' || navLinks.classList.contains('active');
+                    
+                    if (isOpen) {
+                        navLinks.style.display = 'none';
+                        navLinks.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    } else {
+                        navLinks.style.display = 'flex';
+                        navLinks.classList.add('active');
+                        menuToggle.textContent = '✕';
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                        navLinks.style.display = 'none';
+                        navLinks.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    }
+                });
+                
+                // Close menu when a link is clicked
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinks.style.display = 'none';
+                        navLinks.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    });
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navLinks.style.display = 'flex';
+                        navLinks.classList.remove('active');
+                    } else if (!navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Add smooth scrolling to all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Don't prevent default for mobile menu toggle
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
