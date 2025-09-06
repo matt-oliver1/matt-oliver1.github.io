@@ -238,11 +238,17 @@
                 <span>Cancel anytime</span>
               </div>
             </div>
-            <!-- Mobile-only image shown above the button (with iPhone overlay) -->
+            <!-- Mobile-only image shown above the button (with iPhone scrollable mockup) -->
             <div class="d-block d-lg-none my-3 position-relative">
               <img src="images/example of weekly list.png" alt="DAconnect Dashboard mobile preview" class="img-fluid w-100" style="border-radius: 12px;">
-              <img src="images/iphone.png" alt="DAconnect iPhone preview" loading="lazy" class="iphone-overlay"
-                   style="position: absolute; top: 175px; right: -85px; width: 32%; max-width: 150px; height: auto; z-index: 3; border-radius: 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.18);">
+              <div class="iphone-overlay" style="position: absolute; top: 175px; right: -85px; z-index: 3;">
+                <div class="iphone-mockup auto-scroll-container" style="width: 120px; height: 220px;">
+                  <div class="iphone-screen auto-scroll-viewport">
+                    <img src="images/DAconnect_list_mobile.png" alt="DAconnect mobile list" class="auto-scroll-image">
+                  </div>
+                  <img src="images/iphone.png" alt="iPhone frame" class="iphone-frame" loading="lazy">
+                </div>
+              </div>
             </div>
             <a href="#pricing" class="btn btn-primary btn-lg mt-4" style="border-radius: 8px; font-size: 1.1rem; padding: 0.7rem 2rem;">View Pricing Plans</a>
           </div>
@@ -251,8 +257,14 @@
           <div class="position-relative w-100" style="border-radius: 16px; overflow: visible; box-shadow: 0 20px 40px rgba(0,0,0,0.1); padding: 20px; z-index: 2;">
             <img src="images/example of weekly list.png" alt="DAconnect Dashboard" class="img-fluid w-100"
               style="padding-bottom: 10px; border-radius: 12px;">
-            <img src="images/iphone.png" alt="DAconnect iPhone preview" loading="lazy" class="iphone-overlay"
-              style="position: absolute; top: 175px; right: -85px; width: 32%; max-width: 150px; height: auto; z-index: 3; border-radius: 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.18);">
+            <div class="iphone-overlay" style="position: absolute; top: 230px; right: -105px; z-index: 3;">
+              <div class="iphone-mockup auto-scroll-container" style="width: 195px; height: 260px;">
+                <div class="iphone-screen auto-scroll-viewport">
+                  <img src="images/DAconnect_list_mobile.png" alt="DAconnect mobile list" class="auto-scroll-image">
+                </div>
+                <img src="images/iphone.png" alt="iPhone frame" class="iphone-frame" loading="lazy">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -262,9 +274,10 @@
         <div class="col-lg-6 order-lg-1 order-2 d-flex align-items-center exclusive-image-col">
           <div id="exclusiveImageContainer" class="position-relative w-100 scrolling-image-container" style="background: #f6f8fa; border: 1px solid #e9ecef; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 20px;">
             <div id="exclusiveViewport" style="height: 100%; width: 100%; overflow: hidden; background: #ffffff; border-radius: 12px; display: flex; align-items: flex-start; justify-content: center;">
-              <img id="exclusiveImage" src="images/Mr._Tall.png" alt="DAconnect" class="img-fluid scrolling-image" style="width: 85% !important; max-width: 85% !important; margin: 0 auto; display: block; object-fit: contain; object-position: top center;">
+              <img id="exclusiveImage" src="images/DAconnect-exclusive-list.PNG" alt="DAconnect" class="img-fluid scrolling-image" style="width: 85% !important; max-width: 85% !important; margin: 0 auto; display: block; object-fit: contain; object-position: top center;">
             </div>
           </div>
+          
           <!-- Mobile-only CTA below image -->
           <div class="d-block d-lg-none w-100 mt-3">
             <a href="#pricing" class="btn btn-primary btn-lg w-100" style="border-radius: 8px; font-size: 1.05rem; padding: 0.7rem 1rem;">View Pricing Plans</a>

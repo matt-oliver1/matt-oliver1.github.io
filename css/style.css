@@ -176,11 +176,28 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 .process-card:hover .process-icon i { color: var(--secondary-color); transform: scale(1.1) rotate(5deg); }
 .process-image { height: 200px; object-fit: contain; margin: 0 auto 1.5rem; display: block; max-width: 100%; }
 
+/* iPhone mockup with inner scrollable screen */
+.iphone-mockup { position: relative; width: 280px; height: 560px; }
+.iphone-mockup .iphone-frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; pointer-events: none; }
+/* Initial screen area, adjust these values as needed to match the visible opening of the frame */
+.iphone-mockup .iphone-screen { position: absolute; top: 6%; left: 20%; width: 59%; height: 88%; overflow: hidden; background: #ffffff; z-index: 3; }
+.iphone-mockup .iphone-screen img { display: block; width: 100%; height: auto; will-change: transform; transform: translateY(0); }
+
+/* Utility: allow placing mockup centrally on the page if needed */
+.iphone-mockup-wrap { display: flex; justify-content: center; }
+
+/* Make mockup scale on smaller screens */
+@media (max-width: 575.98px) {
+  .iphone-mockup { width: 220px; height: 440px; }
+  .iphone-mockup { border-radius: 18px; }
+  .iphone-mockup .iphone-screen { left: 9% !important; width: 81% !important;}
+}
+
 /* iPhone overlay in Row 1: adjust on mobile to prevent clipping */
 @media (max-width: 767.98px) {
   .iphone-overlay {
     top: 95px !important;
-    right: -25px !important;
+    right: -15px !important;
     width: 25% !important;
     max-width: none !important;
   }
